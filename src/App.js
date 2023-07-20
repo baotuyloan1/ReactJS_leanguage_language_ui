@@ -1,0 +1,102 @@
+import "./App.css";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import AdminCoursesComponent from "./components/admin/courses/AdminCoursesComponent";
+import HeaderADMIN from "./common/HeaderADMIN";
+import LoginComponent from "./components/LoginComponent";
+import AdminDashboardComponent from "./components/admin/AdminDashboardComponent";
+import AdminWordsComponent from "./components/admin/words/AdminWordsComponent";
+import CreateWordComponent from "./components/admin/words/CreateWord";
+import CreateQuestionComponent from "./components/admin/Question/CreateQuestion";
+import CreateTopicComponent from "./components/admin/Topic/CreateTopic";
+import AdminListTopicComponent from "./components/admin/Topic/AdminListTopic";
+const LayoutAdmin = () => (
+  <>
+    <HeaderADMIN />
+    <Outlet />
+  </>
+);
+
+// const LayoutUser = () => (
+//   <>
+//     <MenuUser />
+//     <Outlet />
+//   </>
+// );
+
+const routers = createBrowserRouter([
+  {
+    path: "/admin",
+    element: <LayoutAdmin />,
+    children: [
+      {
+        path: "",
+        element: <AdminDashboardComponent />,
+      },
+      {
+        path: "words",
+        element: <AdminWordsComponent />,
+      },
+      {
+        path: "words/create/:id",
+        element: <CreateWordComponent />,
+      },
+      // {
+      //   path: "/admin/courses/create",
+      //   element: <CreateCourse />,
+      // },
+      { path: "courses", element: <AdminCoursesComponent /> },
+
+      {
+        path: "courses/addTopic/:id",
+        element: <CreateTopicComponent />,
+      },
+      { path: "topics", element: <AdminListTopicComponent /> },
+      // {
+      //   path: "/admin/questions",
+      //   element: <ListQuestion />,
+      // },
+      {
+        path: "questions/create/:id",
+        element: <CreateQuestionComponent />,
+      },
+    ],
+  },
+  // {
+  //   element: <LayoutUser />,
+  //   children: [
+  //     { path: "/user/reviewDashBoard", element: <UserReviewDashBoard /> },
+  //     { path: "/user/categories", element: <UserListCourses /> },
+  //     { path: "/user/topics/:id", element: <UserListTopics /> },
+  //     { path: "/user/:idTopic/learn", element: <LearnNewWord /> },
+  //     {
+  //       path: "/user/reviewVocabulary",
+  //       element: <UserReviewWord />,
+  //     },
+  //   ],
+  // },
+  {
+    path: "/auth",
+    children: [
+      {
+        path: "admin/login",
+        element: (
+          <LoginComponent role="ROLE_ADMIN" successNavigate="/admin/courses" />
+        ),
+      },
+      {
+        path: "user/login",
+        element: <LoginComponent role="ROLE_USER" successNavigate="/user" />,
+      },
+    ],
+  },
+]);
+
+function App() {
+  return (
+    <div className="container-fluid">
+      <RouterProvider router={routers} />
+    </div>
+  );
+}
+
+export default App;
