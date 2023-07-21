@@ -1,46 +1,46 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { API_ADMIN_TOPICS, RESOURCE_IMG_COURSE_URL } from "../../baseUrl";
-import { Link, useNavigate } from "react-router-dom";
-import { error } from "jquery";
-import { id } from "date-fns/locale";
+import { Link, useSearchParams } from "react-router-dom";
+import {
+  adminGetTopics,
+  adminGetTopicsByCourseId,
+} from "../../../api/admin/AdminTopic";
 
 const AdminListTopicComponent = () => {
   const [topics, setTopics] = useState([]);
-  const navigate = useNavigate();
-
-  useState(() => {
-    axios
-      .get(API_ADMIN_TOPICS, {
-        withCredentials: true
-      })
-      .then((response) => {
-        setTopics(response.data);
-        console.log(response.data);
-      })
-      .catch((errors) => {
-        console.log(errors);
-      });
-  }, []);
+  const [searchParams] = useSearchParams();
+  useEffect(() => {
+    if (searchParams.get("courseId") !== null) {
+      adminGetTopicsByCourseId(searchParams.get("courseId"))
+        .then((res) => setTopics(res.data))
+        .catch((error) => console.log(error));
+    } else {
+      adminGetTopics()
+        .then((res) => {
+          setTopics(res.data);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [searchParams]);
 
   const handleDeleteTopic = (id) => {
     axios
       .delete(`${API_ADMIN_TOPICS}/${id}`)
       .then(() => {
-        setTopics((topics) => topics.filter((topic) => topic.id != id));
+        setTopics((topics) => topics.filter((topic) => topic.id !== id));
       })
       .catch((errors) => {
         console.log(errors);
       });
   };
 
- 
-
-
   return (
     <div className="container-fluid">
-      <h2 className="text-center">Course List</h2>
-      {/* 
+      <h2 className="text-center">
+        Topic List {searchParams.get("courseName")}
+      </h2>
+      {/*
       <Link
         to="/admin/courses/create"
         type="button"
@@ -76,7 +76,7 @@ const AdminListTopicComponent = () => {
                 </td>
                 <td>{topic.titleVn}</td>
                 <td>{topic.titleEn}</td>
-                <td>{topic.vocabulary.length}</td>
+                <td>{topic.numberWords}</td>
                 <td>{topic.course?.id}</td>
                 <td>{topic.course?.title}</td>
 
@@ -92,13 +92,13 @@ const AdminListTopicComponent = () => {
 
                 <td>
                   <Link
-                  to={`/admin/words/create/${topic.id}?topicName=${topic.titleEn}`}
+                    to={`/admin/words/create/${topic.id}?topicName=${topic.titleEn}`}
                     className="btn btn-success"
                   >
                     Thêm từ
                   </Link>
                   <Link
-                  to={"/admin/words?topicId="+topic.id}
+                    to={"/admin/words?topicId=" + topic.id}
                     className="btn btn-primary"
                   >
                     Xem các từ

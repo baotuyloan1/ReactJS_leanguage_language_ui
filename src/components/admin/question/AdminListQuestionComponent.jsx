@@ -2,9 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { API_QUESTIONS } from "../../baseUrl";
-import { error } from "jquery";
 
-const ListQuestion = () => {
+const AdminListQuestion = () => {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
@@ -28,7 +27,7 @@ const ListQuestion = () => {
 
   return (
     <div className="container-fluid">
-      <h2 className="text-center">Course List</h2>
+      <h2 className="text-center">Question List</h2>
 
       <br />
       <br />
@@ -78,4 +77,4 @@ const ListQuestion = () => {
   );
 };
 
-export default ListQuestion;
+export default AdminListQuestion;

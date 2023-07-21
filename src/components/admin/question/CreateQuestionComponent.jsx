@@ -3,9 +3,8 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Editor from "ckeditor5-custom-build/build/ckeditor";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import axios from "axios";
-import { API_COURSES, API_QUESTIONS } from "../../baseUrl";
-import InputAnswer from "./InputAnswer";
-import { error } from "jquery";
+import { API_QUESTIONS } from "../../baseUrl";
+import InputAnswer from "./InputAnswerComponent";
 
 const CreateQuestionComponent = () => {
   const { id } = useParams();
@@ -21,7 +20,6 @@ const CreateQuestionComponent = () => {
   const [length, setLength] = useState(2);
   const [question, setQuestion] = useState();
   const [indexRightAnswer, setIndexRightAnswer] = useState(0);
-  const [typeQuestion, setTypeQuestion] = useState(1);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -107,7 +105,7 @@ const CreateQuestionComponent = () => {
   };
 
   const handleDeleteInput = (index) => {
-    setInputAnswers((current) => current.filter((item) => item.id != index));
+    setInputAnswers((current) => current.filter((item) => item.id !== index));
     setLength((length) => length - 1);
   };
 

@@ -54,7 +54,7 @@ const CreateTopicComponent = () => {
 
       const json = JSON.stringify(topic);
 
-      console.log(json)
+      console.log(json);
       const blob = new Blob([json], {
         type: "application/json",
       });
@@ -67,12 +67,14 @@ const CreateTopicComponent = () => {
         url: API_ADMIN_TOPICS,
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" },
-      }).then((response) => {
-        console.log(response);
-        navigate("/admin/courses");
-      }).catch((errors)=>{
-        console.log(errors)
-      });
+      })
+        .then((response) => {
+          console.log(response);
+          navigate("/admin/courses");
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
     }
   };
   return (

@@ -1,48 +1,26 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Link, useSearchParams } from "react-router-dom";
-import { format } from "date-fns";
-import { RESOURCE_IMG_WORD_URL, API_VOCABULARIES } from "../../baseUrl";
+import { API_VOCABULARIES, RESOURCE_IMG_WORD_URL } from "../../baseUrl";
 import "../../../styles/admin/ListWord.css";
+import { adminGetVocabularies } from "../../../api/admin/AdminVocabulary";
 
 const AdminWordsComponent = () => {
   const [words, setWords] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  // const handleDeleteWord  = () =>{
-  //   axios.
-  // }
   useEffect(() => {
-    axios
-      .get(API_VOCABULARIES, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        response.data.forEach((element) => {
-          var formatDate = new Date(element.addedDate);
-          formatDate = new Intl.DateTimeFormat("en-GB", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          }).format(formatDate);
-          element.addedDate = formatDate;
-        });
-        if (searchParams.get("topicId")) {
-          response.data = response.data.filter(
-            (word) => word.topic?.id == searchParams.get("topicId")
-          );
-          console.log(response.data);
-        }
-        setWords(response.data);
-      });
-  }, []);
+    if (searchParams.get("topicId") !== null) {
+    } else {
+      adminGetVocabularies()
+        .then((res) => {
+          setWords(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [searchParams]);
   return (
     <div className="container-fluid">
       <h2 className="text-center">Words List</h2>
-
       <br />
       <br />
       <table className="table table-bordered">
@@ -50,8 +28,7 @@ const AdminWordsComponent = () => {
           <tr>
             <th>ID</th>
             <th>Word</th>
-            <th>Topic</th>
-            <th>Course</th>
+            <th>TopicName</th>
             <th>Image</th>
             <th>IPA</th>
             <th>Meaning Word</th>
@@ -71,8 +48,7 @@ const AdminWordsComponent = () => {
               <tr key={word.id}>
                 <td>{word.id}</td>
                 <td>{word.word}</td>
-                <td>{word.topic?.name}</td>
-                <td>{word.topic?.titleEn}</td>
+                <td>{word.topic.titleEn}</td>
                 <td>
                   <img src={`${RESOURCE_IMG_WORD_URL}/${word.img}`}></img>
                 </td>

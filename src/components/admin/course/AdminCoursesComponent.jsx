@@ -1,18 +1,11 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  API_ADMIN_COURSES,
-  API_COURSES,
-  RESOURCE_IMG_COURSE_URL,
-} from "../../baseUrl";
-import {
-  adminDeleteCourse,
   adminDeleteCourseById,
   adminGetCourses,
 } from "../../../api/admin/AdminCourse";
 import "../../../styles/admin/ListWord.css";
-import { Confirm } from "semantic-ui-react";
+import { RESOURCE_IMG_COURSE_URL } from "../../baseUrl";
 
 const AdminCoursesComponent = () => {
   const navigate = useNavigate();
@@ -26,19 +19,18 @@ const AdminCoursesComponent = () => {
         }
       });
   }, []);
-
   const handleDeleteCourses = (id) => {
     if (window.confirm("Xóa sẽ không thể hoàn tất, có xác nhận xóa ?")) {
       adminDeleteCourseById(id)
         .then(() => {
           setCourses((courses) => {
-            return courses.filter((question) => question.id != id);
+            return courses.filter((question) => question.id !== id);
           });
         })
         .catch((err) => {
-          if(err.response.status ===409){
-            alert('Course này còn chứa nhiều topic khác không thể xóa')
-            console.log(err.response)
+          if (err.response.status === 409) {
+            alert("Course này còn chứa nhiều topic khác không thể xóa");
+            console.log(err.response);
           }
         });
     } else {
@@ -63,7 +55,6 @@ const AdminCoursesComponent = () => {
             <th>Img</th>
             <th>Title</th>
             <th>Target</th>
-            <th>Number of topics</th>
             <th>Description</th>
             <th>Action Topic</th>
             <th>Action</th>
@@ -76,18 +67,26 @@ const AdminCoursesComponent = () => {
               <tr key={course.id}>
                 <td>{course.id}</td>
                 <td>
-                  <img src={`${RESOURCE_IMG_COURSE_URL}/${course.img}`}></img>
+                  <img
+                    alt="Ảnh đại diện khóa học"
+                    src={`${RESOURCE_IMG_COURSE_URL}/${course.img}`}
+                  ></img>
                 </td>
                 <td>{course.title}</td>
                 <td>{course.target}</td>
-                <td>{course.numberTopics}</td>
                 <td>{course.description}</td>
                 <td>
                   <Link
                     className="btn btn-primary me-2"
-                    to={`/admin/courses/addTopic/${course.id}?topicName=${course.title}`}
+                    to={`/admin/courses/addTopic/${course.id}&topicName=${course.title}`}
                   >
                     Add topic
+                  </Link>
+                  <Link
+                    className="btn btn-info me-2"
+                    to={`/admin/topics?courseId=${course.id}&courseName=${course.title}`}
+                  >
+                    List topic
                   </Link>
                 </td>
                 <td>

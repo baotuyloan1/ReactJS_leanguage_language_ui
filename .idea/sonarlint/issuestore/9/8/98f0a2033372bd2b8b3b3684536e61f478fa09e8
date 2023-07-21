@@ -1,0 +1,11 @@
+
+gjavascript:S1481"?Remove the declaration of the unused 'setSearchParms' variable.(õÿÂ ùÿÿÿÿ8‘Š´—1
+djavascript:S1854"<Remove this useless assignment to variable "setSearchParms".(õÿÂ ùÿÿÿÿ8‘‘Š´—1
+Qjavascript:S3504")Unexpected var, use let or const instead.(æ›Úàüÿÿÿÿ8‘‘Š´—1
+Qjavascript:S3504")Unexpected var, use let or const instead.(íÜ·ùÿÿÿÿ8‘‘Š´—1
+Qjavascript:S3504&")Unexpected var, use let or const instead.(æùøÍÿÿÿÿÿ8‘‘Š´—1
+Ljavascript:S35044")Unexpected var, use let or const instead.(Şïš8‘‘Š´—1
+Ljavascript:S35045")Unexpected var, use let or const instead.(ÎÖıÎ8‘‘Š´—1
+Qjavascript:S3504R")Unexpected var, use let or const instead.(€Îü¹ÿÿÿÿÿ8‘‘Š´—1
+Sjavascript:S6477"*Missing "key" prop for element in iterator(İÚš¸ıÿÿÿÿ8‘‘Š´—1
+Sjavascript:S6477¬"*Missing "key" prop for element in iterator(ª²ì¨üÿÿÿÿ8‘‘Š´—1

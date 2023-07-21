@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "bootstrap/dist/js/bootstrap.min.js";
 const HeaderADMIN = () => {
   return (
     <div>
@@ -112,14 +111,14 @@ const HeaderADMIN = () => {
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
-                  <li>
+                  {/* <li>
                     <Link
                       className="dropdown-item"
                       to={"/admin/topics/create"}
                     >
                       Create topic
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
 
@@ -143,14 +142,14 @@ const HeaderADMIN = () => {
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
-                  <li>
+                  {/* <li>
                     <Link
                       className="dropdown-item"
                       to={"/admin/questions/create"}
                     >
                       Create question
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </li>
             </ul>
@@ -169,6 +168,7 @@ const HeaderADMIN = () => {
         </div>
       </nav>
     </div>
+  
   );
 };
 

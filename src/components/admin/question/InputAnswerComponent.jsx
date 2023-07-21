@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 const InputAnswer = ({
   id,
   handleChangeInput,
@@ -27,7 +25,7 @@ const InputAnswer = ({
         <button
           type="button"
           className="btn btn-danger"
-          hidden={id < 3 || id !== length }
+          hidden={id < 3 || id !== length}
           onClick={(e) => handleDeleteInput(id)}
         >
           delete

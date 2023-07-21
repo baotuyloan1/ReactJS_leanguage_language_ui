@@ -7,13 +7,13 @@ const instance = axios.create({
 });
 
 export const adminGetTopics = () => {
-  return instance.get("/");
+  return instance.get("");
 };
 
 export const adminGetTopicsByCourseId = (courseId) => {
   return instance.get(`/courseId/${courseId}`);
 };
 
-export const adminCreateTopic = (topic) =>{
-  return instance.post('',topic);
-}
+export const adminCreateTopic = (topic) => {
+  return instance.post("", topic);
+};

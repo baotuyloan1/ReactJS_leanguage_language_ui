@@ -1,14 +1,25 @@
 import { useEffect, useState } from "react";
-import { Form, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { Button } from "bootstrap";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import "./CreateWord.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import axios from "axios";
+import { adminCreateTopic } from "../../../api/admin/AdminTopic";
 
 const CreateWordComponent = () => {
-  const {id} = useParams();
-  const [searchParams , setSearchParams] = useSearchParams()
-const topicName = searchParams.get("topicName")
-console.log(topicName)
+  const { id } = useParams();
+  const [wordObj, setWordObj] = useState({
+    topic: {
+      id: id,
+    },
+  });
+
+  console.log(wordObj);
+  const handleChangeInput = (key, value) => {
+    setWordObj((current) => ({ ...current, [key]: value }));
+  };
+  const [searchParams, setSearchParams] = useSearchParams();
+  const topicName = searchParams.get("topicName");
 
   const [audioWordSrc, setAudioWordSrc] = useState();
   const [audioSentenceSrc, setAudioSentenceSrc] = useState();
@@ -31,6 +42,8 @@ console.log(topicName)
   const [meaningSentence, setMeaningSentence] = useState("");
 
   const naviagte = useNavigate();
+
+  function clearForm() {}
 
   useEffect(() => {
     return () => {
@@ -91,9 +104,10 @@ console.log(topicName)
     }
   };
 
-  const postData = () => {
+  const postData = (e) => {
+    e.preventDefault();
     setError({});
-    var bodyFormData = new FormData();
+    const bodyFormData = new FormData();
     const vocabulary = {
       word: word,
       ipa: ipa,
@@ -103,11 +117,11 @@ console.log(topicName)
       meaningSentence: meaningSentence,
       audioSentence: nameAudioSentence,
       audioWord: nameAudioWord,
-      topic:{
-        id: id
-      }
+      topic: {
+        id: id,
+      },
     };
-    const json = JSON.stringify(vocabulary);
+    const json = JSON.stringify(wordObj);
     const blod = new Blob([json], {
       type: "application/json",
     });
@@ -115,6 +129,8 @@ console.log(topicName)
     bodyFormData.append("audioWord", audioWordFile);
     bodyFormData.append("audioSentence", audioSentenceFile);
     bodyFormData.append("img", imgFile);
+
+    adminCreateTopic();
     axios({
       method: "post",
       url: "http://localhost:8080/api/vocabularies",
@@ -122,7 +138,18 @@ console.log(topicName)
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((response) => {
-        naviagte("/admin/");
+        console.log(response);
+        toast.success("🦄 Thêm từ vựng thành công!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        clearForm();
       })
       .catch((exception) => {
         /**
@@ -152,7 +179,7 @@ console.log(topicName)
               <input
                 type="text"
                 className="form-control"
-                onChange={(e) => setWord(e.target.value)}
+                onChange={(e) => handleChangeInput("word", e.target.value)}
               />
               {errors.word && <span>Name {errors.word}</span>}
             </div>
@@ -163,7 +190,7 @@ console.log(topicName)
               <input
                 type="text"
                 className="form-control"
-                onChange={(e) => setIpa(e.target.value)}
+                onChange={(e) => handleChangeInput("ipa", e.target.value)}
               />
               {errors.IPA && <span>API {errors.IPA}</span>}
             </div>
@@ -174,18 +201,20 @@ console.log(topicName)
               <input
                 type="text"
                 className="form-control"
-                onChange={(e) => setType(e.target.value)}
+                onChange={(e) => handleChangeInput("type", e.target.value)}
               />
               {errors.type && <span>Type {errors.type}</span>}
             </div>
             <div className="col-md-8">
               <label htmlFor="inputCity" className="form-label">
-                Meaning word
+                Meaning word meaningWord
               </label>
               <input
                 type="text"
                 className="form-control"
-                onChange={(e) => setMeaningWord(e.target.value)}
+                onChange={(e) =>
+                  handleChangeInput("meaningWord", e.target.value)
+                }
               />
               {errors.meaningWord && (
                 <span>Meaning word {errors.meaningWord}</span>
@@ -196,12 +225,11 @@ console.log(topicName)
                 Topic
               </label>
               <input
-              disabled
+                disabled
                 type="text"
                 className="form-control"
-                value= {`${id} - ${topicName}`}
+                value={`${id} - ${topicName}`}
               />
-            
             </div>
             <div className="col-md-6">
               <label htmlFor="inputCity" className="form-label">
@@ -266,7 +294,7 @@ console.log(topicName)
                 type="text"
                 className="form-control"
                 placeholder="Input sentence english"
-                onChange={(e) => setSentence(e.target.value)}
+                onChange={(e) => handleChangeInput("sentence", e.target.value)}
               />
               {errors.sentence && <span>Meaning word {errors.sentence}</span>}
             </div>
@@ -278,7 +306,9 @@ console.log(topicName)
                 type="text"
                 className="form-control"
                 placeholder="Input meaning sentence"
-                onChange={(e) => setMeaningSentence(e.target.value)}
+                onChange={(e) =>
+                  handleChangeInput("meaningSentence", e.target.value)
+                }
               />
               {errors.meaningSentence && (
                 <span>Meaning word {errors.meaningSentence}</span>
@@ -307,6 +337,18 @@ console.log(topicName)
           </form>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };

@@ -1,14 +1,18 @@
 import "./App.css";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
-import AdminCoursesComponent from "./components/admin/courses/AdminCoursesComponent";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import AdminCoursesComponent from "./components/admin/course/AdminCoursesComponent";
 import HeaderADMIN from "./common/HeaderADMIN";
 import LoginComponent from "./components/LoginComponent";
 import AdminDashboardComponent from "./components/admin/AdminDashboardComponent";
-import AdminWordsComponent from "./components/admin/words/AdminWordsComponent";
-import CreateWordComponent from "./components/admin/words/CreateWord";
-import CreateQuestionComponent from "./components/admin/Question/CreateQuestion";
-import CreateTopicComponent from "./components/admin/Topic/CreateTopic";
-import AdminListTopicComponent from "./components/admin/Topic/AdminListTopic";
+import AdminWordsComponent from "./components/admin/word/AdminWordsComponent";
+import CreateWordComponent from "./components/admin/word/CreateWord";
+import CreateQuestionComponent from "./components/admin/question/CreateQuestionComponent";
+import CreateTopicComponent from "./components/admin/topic/CreateTopicComponent";
+import AdminListTopicComponent from "./components/admin/topic/AdminListTopicComponent";
+import CreateCourse from "./components/admin/course/CreateCourse";
+import AdminListQuestion from "./components/admin/question/AdminListQuestionComponent";
+import MenuUser from "./common/MenuUser";
+
 const LayoutAdmin = () => (
   <>
     <HeaderADMIN />
@@ -16,12 +20,12 @@ const LayoutAdmin = () => (
   </>
 );
 
-// const LayoutUser = () => (
-//   <>
-//     <MenuUser />
-//     <Outlet />
-//   </>
-// );
+const LayoutUser = () => (
+  <>
+    <MenuUser />
+    <Outlet />
+  </>
+);
 
 const routers = createBrowserRouter([
   {
@@ -40,10 +44,10 @@ const routers = createBrowserRouter([
         path: "words/create/:id",
         element: <CreateWordComponent />,
       },
-      // {
-      //   path: "/admin/courses/create",
-      //   element: <CreateCourse />,
-      // },
+      {
+        path: "courses/create",
+        element: <CreateCourse />,
+      },
       { path: "courses", element: <AdminCoursesComponent /> },
 
       {
@@ -51,10 +55,10 @@ const routers = createBrowserRouter([
         element: <CreateTopicComponent />,
       },
       { path: "topics", element: <AdminListTopicComponent /> },
-      // {
-      //   path: "/admin/questions",
-      //   element: <ListQuestion />,
-      // },
+      {
+        path: "questions",
+        element: <AdminListQuestion />,
+      },
       {
         path: "questions/create/:id",
         element: <CreateQuestionComponent />,

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_ADMIN_COURSES, API_VOCABULARIES } from "../../baseUrl";
+import { API_ADMIN_COURSES } from "../../baseUrl";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -131,7 +131,7 @@ const CreateCourse = () => {
             </div>
 
             <div className="col-md-6">
-              {imgObjectURL && <img src={imgObjectURL} height="100px" />}
+              {imgObjectURL && <img src={imgObjectURL} height="100px" alt="Ảnh đại diện"/>}
             </div>
             <div className="col-md-12">
               <label htmlFor="inputCity" className="form-label">
