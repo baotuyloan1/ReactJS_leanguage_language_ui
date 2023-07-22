@@ -37,6 +37,7 @@ const LoginComponent = ({ role, successNavigate }) => {
         }
       })
       .catch((error) => {
+        console.log((error))
         if (error.response.status === 401) {
           alert("Sai tên đăng nhập hoặc mật khẩu");
         }

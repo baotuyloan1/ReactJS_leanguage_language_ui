@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8080/api";
+const API_BASE = "http://116.105.222.85:8081/api";
 const API_USER = API_BASE + "/user";
 const API_ADMIN = API_BASE + "/admin";
 
