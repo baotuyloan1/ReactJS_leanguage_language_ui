@@ -1,0 +1,25 @@
+
+hjavascript:S1481"@Remove the declaration of the unused 'setSearchParams' variable.(“àÆûÿÿÿÿ8Ñ­È¿—1
+ejavascript:S1854"=Remove this useless assignment to variable "setSearchParams".(“àÆûÿÿÿÿ8Ñ­È¿—1
+`javascript:S1481"8Remove the declaration of the unused 'nameImg' variable.(÷»Öüÿÿÿÿ8Ò­È¿—1
+]javascript:S1854"5Remove this useless assignment to variable "nameImg".(÷»Öüÿÿÿÿ8Ò­È¿—1
+`javascript:S1481%"8Remove the declaration of the unused 'setWord' variable.(Óü£ûÿÿÿÿ8Ò­È¿—1
+]javascript:S1854%"5Remove this useless assignment to variable "setWord".(Óü£ûÿÿÿÿ8Ò­È¿—1
+djavascript:S1481&"<Remove the declaration of the unused 'setSentence' variable.(Ê§ßáúÿÿÿÿ8Ò­È¿—1
+ajavascript:S1854&"9Remove this useless assignment to variable "setSentence".(Ê§ßáúÿÿÿÿ8Ò­È¿—1
+bjavascript:S1481'"?Remove the declaration of the unused 'setMeaningWord' variable.(ÃØ‹›8Ò­È¿—1
+_javascript:S1854'"<Remove this useless assignment to variable "setMeaningWord".(ÃØ‹›8Ò­È¿—1
+Zjavascript:S1481("8Remove the declaration of the unused 'setType' variable.(Ñ™Ÿ8Ó­È¿—1
+Wjavascript:S1854("5Remove this useless assignment to variable "setType".(Ñ™Ÿ8Ó­È¿—1
+Zjavascript:S1481)"7Remove the declaration of the unused 'setIpa' variable.(ïÕÆÓ8Ó­È¿—1
+Wjavascript:S1854)"4Remove this useless assignment to variable "setIpa".(ïÕÆÓ8Ó­È¿—1
+kjavascript:S1481*"CRemove the declaration of the unused 'setMeaningSentence' variable.(¨æÿ×ıÿÿÿÿ8Ó­È¿—1
+hjavascript:S1854*"@Remove this useless assignment to variable "setMeaningSentence".(¨æÿ×ıÿÿÿÿ8Ó­È¿—1
+ajavascript:S1481,"9Remove the declaration of the unused 'naviagte' variable.(íğªêşÿÿÿÿ8Ó­È¿—1
+^javascript:S1854,"6Remove this useless assignment to variable "naviagte".(íğªêşÿÿÿÿ8Ó­È¿—1
+Ijavascript:S1186."&Unexpected empty function 'clearForm'.(ÌŸ³’8Ó­È¿—1
+Qjavascript:S3504F")Unexpected var, use let or const instead.(•ÃíÕøÿÿÿÿ8Ó­È¿—1
+Qjavascript:S3504T")Unexpected var, use let or const instead.(•ÃíÕøÿÿÿÿ8Ó­È¿—1
+Qjavascript:S3504a")Unexpected var, use let or const instead.(•ÃíÕøÿÿÿÿ8Ó­È¿—1
+^javascript:S1481o";Remove the declaration of the unused 'vocabulary' variable.(„ÿÏ8Ô­È¿—1
+[javascript:S1854o"8Remove this useless assignment to variable "vocabulary".(„ÿÏ8Ô­È¿—1

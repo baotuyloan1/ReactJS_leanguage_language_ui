@@ -7,7 +7,7 @@ const instance = axios.create({
 });
 
 export const adminGetCourses = () => {
-  return instance.get("/");
+  return instance.get("");
 };
 
 //   export const adminGetCourseById = (courseId) => {
@@ -18,6 +18,6 @@ export const adminCreateCourse = (course) => {
   return instance.post("", course);
 };
 
-export const adminDeleteCourseById = (courseId) =>{
+export const adminDeleteCourseById = (courseId) => {
   return instance.delete(`/${courseId}`);
-}
+};
