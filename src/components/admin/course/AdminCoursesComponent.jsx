@@ -78,7 +78,7 @@ const AdminCoursesComponent = () => {
                 <td>
                   <Link
                     className="btn btn-primary me-2"
-                    to={`/admin/courses/addTopic/${course.id}&topicName=${course.title}`}
+                    to={`/admin/courses/${course.id}/addTopic?courseName=${course.title}`}
                   >
                     Add topic
                   </Link>

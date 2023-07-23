@@ -51,7 +51,7 @@ const routers = createBrowserRouter([
       { path: "courses", element: <AdminCoursesComponent /> },
 
       {
-        path: "courses/addTopic/:id",
+        path: "courses/:id/addTopic",
         element: <CreateTopicComponent />,
       },
       { path: "topics", element: <AdminListTopicComponent /> },
