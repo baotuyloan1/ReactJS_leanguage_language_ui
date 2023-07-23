@@ -17,8 +17,6 @@ J
 src/common/HeaderADMIN.jsx,4\b\4b2c9fb32630cc686d6a3e0865e5b955d1c10a2b
 <
 src/index.js,f\9\f900edc44cb929c2267a16100a32851f6d5b477d
-K
-src/api/admin/AdminAuth.jsx,8\8\880b7422a95310388d37589898039b211603f89d
 e
 5src/components/admin/course/AdminCoursesComponent.jsx,6\9\6931668417d2eb1759de1f036f6ec7450cfc3526
 L

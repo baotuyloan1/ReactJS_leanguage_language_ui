@@ -14,3 +14,7 @@ export const adminGetTopics = () => {
 export const adminCreateTopic = (topic) => {
     return instance.post("", topic, {headers: {"Content-Type": "multipart/form-data"}});
 };
+
+export const adminDeleteTopicById = (id) =>{
+    return instance.delete(`/${id}`);
+}
