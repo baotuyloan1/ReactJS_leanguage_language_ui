@@ -9,3 +9,7 @@ const instance = axios.create({
 export const signIn = (account) => {
     return instance.post("/sign-in", account);
 };
+
+export const logout = () =>{
+    return instance.post("/sign-out");
+}

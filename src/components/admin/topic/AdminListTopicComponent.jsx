@@ -112,7 +112,7 @@ const AdminListTopicComponent = () => {
                     >
                         Delete topic
                     </button>
-                    <button className="btn btn-primary">Edit topic</button>
+                    {/*<button className="btn btn-primary">Edit topic</button>*/}
                 </td>
 
                 <td>
@@ -123,7 +123,7 @@ const AdminListTopicComponent = () => {
                         Thêm từ
                     </Link>
                     <Link
-                        to={"/admin/words?topicId=" + topic.id}
+                        to={"/admin/words?topicId=" + topic.id + "&topicName=" + topic.titleEn}
                         className="btn btn-primary"
                     >
                         Xem các từ

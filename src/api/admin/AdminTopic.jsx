@@ -18,3 +18,7 @@ export const adminCreateTopic = (topic) => {
 export const adminDeleteTopicById = (id) =>{
     return instance.delete(`/${id}`);
 }
+
+export const adminGetVocabulariesByTopicid = (id) =>{
+    return instance.get(`/${id}/vocabularies`)
+}

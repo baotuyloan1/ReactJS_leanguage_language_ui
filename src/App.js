@@ -63,21 +63,25 @@ const routers = createBrowserRouter([
         path: "questions/create/:id",
         element: <CreateQuestionComponent />,
       },
+      {
+        path: "words/:id/questions",
+        element: <AdminListQuestion/>
+      }
     ],
   },
-  // {
-  //   element: <LayoutUser />,
-  //   children: [
-  //     { path: "/user/reviewDashBoard", element: <UserReviewDashBoard /> },
-  //     { path: "/user/categories", element: <UserListCourses /> },
-  //     { path: "/user/topics/:id", element: <UserListTopics /> },
-  //     { path: "/user/:idTopic/learn", element: <LearnNewWord /> },
-  //     {
-  //       path: "/user/reviewVocabulary",
-  //       element: <UserReviewWord />,
-  //     },
-  //   ],
-  // },
+  {
+    element: <LayoutUser />,
+    children: [
+      { path: "/user/reviewDashBoard", element: <UserReviewDashBoard /> },
+      { path: "/user/categories", element: <UserListCourses /> },
+      { path: "/user/topics/:id", element: <UserListTopics /> },
+      { path: "/user/:idTopic/learn", element: <LearnNewWord /> },
+      {
+        path: "/user/reviewVocabulary",
+        element: <UserReviewWord />,
+      },
+    ],
+  },
   {
     path: "/auth",
     children: [

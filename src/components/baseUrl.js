@@ -1,3 +1,4 @@
+
 const ROOT = "http://116.105.222.85:8080";
 const API_BASE = ROOT + "/api/v1";
 const API_USER = API_BASE + "/user";
@@ -21,6 +22,7 @@ export const API_USER_NEXT_REVIEW_VOCABULARIES =
 export const API_ADMIN_COURSES = API_BASE + "/courses";
 export const API_ADMIN_TOPICS = API_BASE + "/topics";
 export const API_ADMIN_VOCABULARIES = API_BASE + "/vocabularies";
+export const API_ADMIN_QUESTION = API_BASE+ "/questions";
 
 /**
  * Resource URL

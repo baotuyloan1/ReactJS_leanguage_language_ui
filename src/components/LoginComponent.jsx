@@ -9,7 +9,7 @@ const isContainRequireRole = (rolesRes, roleRequire) => {
 
     });
 };
-const LoginComponent = ({role, successNavigate}) => {
+const LoginComponent = ({role: requireRole, successNavigate}) => {
     const [account, setAccount] = useState({username: "", password: ""});
     const cookies = new Cookies();
     const navigate = useNavigate();
@@ -22,10 +22,10 @@ const LoginComponent = ({role, successNavigate}) => {
         e.preventDefault();
         signIn(account)
             .then((res) => {
-                console.log(role);
-                console.log(res.data.roles);
-                console.log(isContainRequireRole(res.data.roles, role));
-                if (isContainRequireRole(res.data.roles, role)) {
+                console.log("Required role", requireRole);
+                console.log("Own role", res.data.roles);
+                console.log(isContainRequireRole(res.data.roles, requireRole));
+                if (isContainRequireRole(res.data.roles, requireRole)) {
                     navigate(successNavigate);
                 } else {
                     alert("Người dùng không đủ quyền truy cập");
