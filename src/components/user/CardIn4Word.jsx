@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import { API_VOCABULARIES, RESOURCE_IMG_WORD_URL } from "../baseUrl";
+import { API_AUDIO_PLAY, RESOURCE_IMG_WORD_URL } from "../baseUrl";
 import { useEffect, useState } from "react";
+
 const CardIn4Word = ({ word, playAudio }) => {
   const [audio, setAudio] = useState();
 
@@ -9,18 +9,14 @@ const CardIn4Word = ({ word, playAudio }) => {
   useEffect(() => {
     console.log("a");
     setAudio((current) => {
-      const audio1 = new Audio(
-        API_VOCABULARIES + "/playAudio/" + word.audioWord
-      );
+      const audio1 = new Audio(API_AUDIO_PLAY + "/" + word.audioWord);
       if (playAudio) {
         audio1.play();
       }
       return audio1;
     });
 
-    setAudioSentence(
-      new Audio(API_VOCABULARIES + "/playAudio/" + word.audioSentence)
-    );
+    setAudioSentence(new Audio(API_AUDIO_PLAY + "/" + word.audioSentence));
   }, []);
 
   const handlePlayAudioWord = () => {

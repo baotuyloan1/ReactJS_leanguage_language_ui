@@ -36,24 +36,24 @@ const UserReviewWord = () => {
     console.log(isCorrectAnswer, idWord);
 
     // if (isCorrectAnswer) {
-      axios
-        .post(
-          "http://localhost:8080/api/user/updateVocabulary",
-          { idVocabulary: idWord, rightAnswer: isCorrectAnswer },
-          {
-            withCredentials: true,
-          }
-        )
-        .then((res) => {
-          console.log(res);
-          return true;
-        })
-        .catch((error) => {
-          if (error.response && error.response.status === 401) {
-            alert("Sai tên đăng nhập hoặc mật khẩu");
-          }
-          console.log(error);
-        });
+    axios
+      .post(
+        "http://localhost:8080/api/user/updateVocabulary",
+        { idVocabulary: idWord, rightAnswer: isCorrectAnswer },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        return true;
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          alert("Sai tên đăng nhập hoặc mật khẩu");
+        }
+        console.log(error);
+      });
     // }
   };
   const handleCancel = () => {
@@ -98,7 +98,6 @@ const UserReviewWord = () => {
           if (temp === numberTypes && indexWord === words.length - 1) {
             setIsLast(true);
           }
-
           return temp;
         });
       }
@@ -118,7 +117,7 @@ const UserReviewWord = () => {
          * sử lý thêm từ đã học
          */
         handleUpdateLearnedWord(words[indexWord].word.id);
-        console.log('tắt modal')
+        console.log("tắt modal");
         return indexWord + 1;
       });
 

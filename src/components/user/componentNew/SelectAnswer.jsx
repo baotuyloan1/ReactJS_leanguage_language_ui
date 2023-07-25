@@ -2,11 +2,12 @@ import { useState } from "react";
 import CardIn4Word from "../CardIn4Word";
 import MyModal from "./MyModal";
 
-const SelectAnswer = ({ answers, idRightAnswer, word, question, nextCb }) => {
+const SelectAnswer = ({ question, word, nextCb }) => {
   const [modalShow, setModalShow] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
   const handleClickAnswer = (idAnswer) => {
-    if (idAnswer === idRightAnswer) {
+    console.log(question.idRightAnswer, idAnswer);
+    if (idAnswer === question.idRightAnswer) {
       setModalShow(true);
       setIsCorrectAnswer(true);
       console.log("Đúng");
@@ -36,9 +37,9 @@ const SelectAnswer = ({ answers, idRightAnswer, word, question, nextCb }) => {
         handleHide={() => setModalShow(false)}
       />
       <div>
-        <div dangerouslySetInnerHTML={{ __html: question }} />
+        <div dangerouslySetInnerHTML={{ __html: question.question }} />
       </div>
-      {answers.map((answer) => (
+      {question.answers.map((answer) => (
         <div>
           <button
             onClick={(e) => handleClickAnswer(answer.id)}

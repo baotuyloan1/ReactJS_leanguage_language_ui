@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_VOCABULARIES } from "../../baseUrl";
+import { API_AUDIO_PLAY, API_VOCABULARIES } from "../../baseUrl";
 import MyModal from "./MyModal";
 
 const ListenAnswer = ({ word, nextCb }) => {
@@ -9,9 +9,7 @@ const ListenAnswer = ({ word, nextCb }) => {
 
   useEffect(() => {
     setAudio((audio) => {
-      const audio1 = new Audio(
-        API_VOCABULARIES + "/playAudio/" + word.audioWord
-      );
+      const audio1 = new Audio(API_AUDIO_PLAY + "/" + word.audioWord);
       audio1.play();
       return audio1;
     });

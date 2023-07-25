@@ -12,6 +12,11 @@ import AdminListTopicComponent from "./components/admin/topic/AdminListTopicComp
 import CreateCourse from "./components/admin/course/CreateCourse";
 import AdminListQuestion from "./components/admin/question/AdminListQuestionComponent";
 import MenuUser from "./common/MenuUser";
+import UserReviewDashBoard from "./components/user/UserReviewDashboard";
+import UserListCourses from "./components/user/courses/UserListCourses";
+import UserListTopics from "./components/user/topics/UserListTopics";
+import LearnNewWord from "./components/user/LearnNewWord";
+import UserReviewWord from "./components/user/UserReviewWord";
 
 const LayoutAdmin = () => (
   <>
@@ -65,17 +70,18 @@ const routers = createBrowserRouter([
       },
       {
         path: "words/:id/questions",
-        element: <AdminListQuestion/>
-      }
+        element: <AdminListQuestion />,
+      },
     ],
   },
   {
     element: <LayoutUser />,
     children: [
       { path: "/user/reviewDashBoard", element: <UserReviewDashBoard /> },
-      { path: "/user/categories", element: <UserListCourses /> },
-      { path: "/user/topics/:id", element: <UserListTopics /> },
-      { path: "/user/:idTopic/learn", element: <LearnNewWord /> },
+      { path: "", element: <UserReviewDashBoard /> },
+      { path: "/user/courses", element: <UserListCourses /> },
+      { path: "/user/courses/:id/topics", element: <UserListTopics /> },
+      { path: "/user/topics/:id/vocabularies", element: <LearnNewWord /> },
       {
         path: "/user/reviewVocabulary",
         element: <UserReviewWord />,

@@ -11,14 +11,14 @@ const AdminCoursesComponent = () => {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   useEffect(() => {
-      console.log(1)
+    console.log(1);
     adminGetCourses()
       .then((response) => setCourses(response.data))
       .catch((error) => {
-        if (error.response.status === 401) {
+        if (error.response.status === 401 || error.response.status === 403) {
           navigate("/auth/admin/login");
         }
-        console.log((error))
+        console.log(error);
       });
   }, []);
   const handleDeleteCourses = (id) => {
