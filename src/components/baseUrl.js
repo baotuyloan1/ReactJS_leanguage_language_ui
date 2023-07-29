@@ -1,4 +1,4 @@
-const ROOT = "http://116.105.222.85:8080";
+const ROOT = "http://localhost:8080";
 const API_BASE = ROOT + "/api/v1";
 const API_USER = API_BASE + "/user";
 
