@@ -1,30 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/user/MenuUser.css";
 import { logout } from "../api/auth";
-import axios from "axios";
+import { getMessaging, getToken } from "firebase/messaging";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "../config/FirebaseConfig";
+import { userPostDeviceToken } from "../api/user/UserNotification";
 
-async function subscribe1() {
-  const notificationPermission = await Notification.requestPermission();
-  if (notificationPermission === "granted") {
-    const registration = await navigator.serviceWorker.getRegistration();
+const app = initializeApp(firebaseConfig);
 
-    const subscription = await registration?.pushManager.subscribe({
-      userVisibleOnly: false,
-      applicationServerKey: urlB64ToUnit8Array(
-        "BMxiyESR0-qd2q2XSQrbDUvtCQJW-PXAdbX-u2eF_Ph5maD-X2R4BOKeAy59RAm2Aii9sWMZFv024aGQX-hAsg8"
-      ),
-    });
-    console.log(subscription);
-
-    if (subscription) {
-      console.log(subscription);
-      axios.post(JSON.parse(JSON.stringify(subscription)));
-    } else {
-    }
-  } else {
-    console.log("huy");
-  }
-}
+const messaging = getMessaging(app);
 
 function urlB64ToUnit8Array(base64String) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -39,7 +23,50 @@ function urlB64ToUnit8Array(base64String) {
   return outputArray;
 }
 
+let permissionGranted = Notification.permission;
+
+function requestPermission() {
+  console.log(permissionGranted);
+  console.log("AAAA", Notification.permission);
+  if (permissionGranted !== "granted") {
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        permissionGranted = "denied";
+        getToken(messaging, {
+          vapidKey:
+            "BDZjuFKTTLPW-0XsLqm93rbEFNCZMhDa7Q8bIKodMG4NH0uepZYEGbakh6SJIylMA1V-DwrsqAy41PwLqpXmwxs",
+        })
+          .then((currentToken) => {
+            if (currentToken) {
+              console.log(currentToken);
+              userPostDeviceToken({
+                deviceToken: currentToken,
+                deviceType: "web",
+              })
+                .then(() => {
+                  alert(
+                    "Đặt thông báo thành công, hãy nhớ học bài đúng giờ nhé"
+                  );
+                })
+                .catch((err) => console.log(err));
+            } else {
+              //show permission request UI
+              console.log(
+                "No registration token available. Request permission to generate one."
+              );
+            }
+          })
+          .catch((err) => console.log(err));
+      } else {
+        console.log("chưa có quyền thông báo");
+      }
+    });
+  }
+}
+
 const MenuUser = () => {
+  requestPermission();
+
   const navigate = useNavigate();
 
   function handleLogout() {

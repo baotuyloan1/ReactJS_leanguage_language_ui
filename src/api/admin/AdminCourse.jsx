@@ -10,10 +10,6 @@ export const adminGetCourses = () => {
   return instance.get("");
 };
 
-//   export const adminGetCourseById = (courseId) => {
-//     return instance.get(`/courseId/${courseId}`);
-//   };
-
 export const adminCreateCourse = (course) => {
   return instance.post("", course, {
     headers: { "Content-Type": "multipart/form-data" },
