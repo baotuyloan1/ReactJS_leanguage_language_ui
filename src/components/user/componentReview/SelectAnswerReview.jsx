@@ -1,55 +1,62 @@
-import { useState } from "react";
-import CardIn4Word from "../CardIn4Word";
-import MyModal from "./MyModalReview";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import MyModalReview from "./MyModalReview";
+import { userPutSelectVocabulary } from "../../../api/user/UserVocabulary";
+import { useNavigate } from "react-router-dom";
 
-const SelectAnswer = ({ answers, idRightAnswer, word, question, nextCb }) => {
+const SelectAnswer = ({
+  word,
+  setWords,
+  setCurrentWord,
+  words,
+  setIndexWord,
+}) => {
   const [modalShow, setModalShow] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
-
-
+  const navigate = useNavigate();
   useEffect(() => {
-    console.log('use Effect select')
     setModalShow(false);
   }, []);
+  console.log(word, "Bao");
+
   const handleClickAnswer = (idAnswer) => {
-    if (idAnswer === idRightAnswer) {
+    userPutSelectVocabulary({
+      idQuestion: word.learnTypes[0].idQuestion,
+      idAnswer: idAnswer,
+    }).then((res) => {
+      if (res.data.learnAgain) {
+        setIsCorrectAnswer(false);
+      } else {
+        setIsCorrectAnswer(true);
+      }
       setModalShow(true);
-      setIsCorrectAnswer(true);
-      console.log("Đúng");
-    } else {
-      setModalShow(true);
-      setIsCorrectAnswer(false);
-    }
+    });
   };
 
   return (
-    <div class="list-group">
-      <MyModal
-        isCorrect={isCorrectAnswer}
+    <div className="list-group">
+      <MyModalReview
         word={word}
-        playAudio={false}
-        handleNext={nextCb}
-        show={modalShow}
-        handleHide={() => setModalShow(false)}
+        isCorrect={isCorrectAnswer}
+        isShowModal={modalShow}
+        setShowModal={setModalShow}
+        words={words}
+        setCurrentWord={setCurrentWord}
+        setIndexWord={setIndexWord}
+        setWords={setWords}
       />
 
-      <MyModal
-        isCorrect={isCorrectAnswer}
-        word={word}
-        playAudio={false}
-        handleNext={nextCb}
-        show={modalShow}
-        handleHide={() => setModalShow(false)}
-      />
       <div>
-        <div dangerouslySetInnerHTML={{ __html: question }} />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: word.learnTypes[0].question,
+          }}
+        />
       </div>
-      {answers.map((answer) => (
-        <div>
+      {word.learnTypes[0]?.answers.map((answer) => (
+        <div key={answer.id}>
           <button
             onClick={(e) => handleClickAnswer(answer.id)}
-            class="list-group-item list-group-item-action"
+            className="list-group-item list-group-item-action"
           >
             {answer.answer}
           </button>

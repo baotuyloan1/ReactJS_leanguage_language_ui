@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_USER_NEXT_REVIEW_VOCABULARIES } from "../baseUrl";
-import { error } from "jquery";
 import moment from "moment/moment";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const UserReviewDashBoard = () => {
   const [vocabularies, setVocabularies] = useState([]);
@@ -19,7 +18,7 @@ const UserReviewDashBoard = () => {
       .get(API_USER_NEXT_REVIEW_VOCABULARIES, { withCredentials: true })
       .then((res) => {
         setVocabularies(res.data);
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -30,7 +29,9 @@ const UserReviewDashBoard = () => {
     if (vocabularies.length > 0) {
       const timer = setInterval(() => {
         const currentTime = moment(new Date());
-        const nextTime = moment(vocabularies[vocabularies.length - 1].endDate);
+        const nextTime = moment(
+          vocabularies[vocabularies.length - 1].reviewDate
+        );
         const diff = nextTime.diff(currentTime);
         setDiffTime(diff);
         setRestTime(moment.duration(diff));
@@ -48,7 +49,9 @@ const UserReviewDashBoard = () => {
         <div class="container">
           <div>
             {diffTime > 2 &&
-              `${restTime?.hours()}:${restTime.minutes()}:${restTime.seconds()}`}
+              `${
+                restTime?.days() > 0 ? restTime?.days() + " ngày" : ""
+              } ${restTime?.hours()} :${restTime.minutes()}:${restTime.seconds()}`}
           </div>
           <div> Chuẩn bị ôn tập {vocabularies.length} từ</div>
           <button
@@ -58,7 +61,6 @@ const UserReviewDashBoard = () => {
           >
             Ôn tập ngay
           </button>
-
         </div>
       )}
     </div>

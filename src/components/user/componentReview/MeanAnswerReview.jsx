@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
-import MyModal from "./MyModalReview";
-import axios from "axios";
+import MyModalReview from "./MyModalReview";
+import { userPutReviewVocabulary } from "../../../api/user/UserVocabulary";
 
-const MeanAnswer = ({ word, nextCb, cbSetIsCorrect }) => {
+const MeanAnswer = ({
+  word,
+  setWords,
+  setCurrentWord,
+  words,
+  setIndexWord,
+}) => {
   const [modalShow, setModalShow] = useState(false);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
   const [inputAnswer, setInputAnswers] = useState();
@@ -11,7 +17,7 @@ const MeanAnswer = ({ word, nextCb, cbSetIsCorrect }) => {
   const emptySentence = word.sentence.replace(regex, emptyChar);
 
   useEffect(() => {
-    console.log('use Effect mean')
+    console.log("use Effect mean");
     setModalShow(false);
   }, []);
   const handleChangeInput = (value) => {
@@ -19,45 +25,33 @@ const MeanAnswer = ({ word, nextCb, cbSetIsCorrect }) => {
   };
   const handleCheckInput = () => {
     if (inputAnswer) {
-      if (word.word.toUpperCase() === inputAnswer.toUpperCase()) {
-        setModalShow(true);
-        setIsCorrectAnswer(true);
-        console.log("Đúng");
-      } else {
-        axios
-          .post(
-            "http://localhost:8080/api/user/updateVocabulary",
-            { idVocabulary: word.id, rightAnswer: false },
-            {
-              withCredentials: true,
-            }
-          )
-          .then((res) => {
-            console.log(res);
-            return true;
-          })
-          .catch((error) => {
-            // if (error.response && error.response.status === 401) {
-            //   alert("Sai tên đăng nhập hoặc mật khẩu");
-            // }
-            console.log(error);
-          });
-        cbSetIsCorrect(false);
-        setModalShow(true);
-        setIsCorrectAnswer(false);
-      }
-    } else {
+      userPutReviewVocabulary({
+        vocabularyId: word.vocabularyId,
+        answer: inputAnswer,
+      })
+        .then((res) => {
+          if (res.data.learnAgain) {
+            setIsCorrectAnswer(false);
+          } else {
+            setIsCorrectAnswer(true);
+          }
+          setModalShow(true);
+          setInputAnswers("");
+        })
+        .catch((err) => console.log(err));
     }
   };
   return (
     <div>
-      <MyModal
-        isCorrect={isCorrectAnswer}
+      <MyModalReview
         word={word}
-        playAudio={false}
-        handleNext={nextCb}
-        show={modalShow}
-        handleHide={() => setModalShow(false)}
+        isCorrect={isCorrectAnswer}
+        isShowModal={modalShow}
+        setShowModal={setModalShow}
+        words={words}
+        setCurrentWord={setCurrentWord}
+        setIndexWord={setIndexWord}
+        setWords={setWords}
       />
 
       <h6>Nhập từ vào chỗ trống</h6>
@@ -75,6 +69,7 @@ const MeanAnswer = ({ word, nextCb, cbSetIsCorrect }) => {
         onChange={(e) => handleChangeInput(e.target.value)}
         type="text"
         className="form-control"
+        value={}
       />
       <br />
       <div className=" d-flex justify-content-center">

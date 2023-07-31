@@ -5,6 +5,7 @@ import { getMessaging, getToken } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../config/FirebaseConfig";
 import { userPostDeviceToken } from "../api/user/UserNotification";
+import { useEffect, useState } from "react";
 
 const app = initializeApp(firebaseConfig);
 
@@ -23,15 +24,15 @@ function urlB64ToUnit8Array(base64String) {
   return outputArray;
 }
 
-let permissionGranted = Notification.permission;
-
-function requestPermission() {
-  console.log(permissionGranted);
-  console.log("AAAA", Notification.permission);
-  if (permissionGranted !== "granted") {
+const MenuUser = () => {
+  const navigate = useNavigate();
+  const [permissionNotification, setPermissionNotification] = useState();
+  useEffect(() => {
     Notification.requestPermission().then((permission) => {
+      console.log("trong ham then", permission);
+      // If the user accepts, let's create a notification
       if (permission === "granted") {
-        permissionGranted = "denied";
+        console.log("granted roi");
         getToken(messaging, {
           vapidKey:
             "BDZjuFKTTLPW-0XsLqm93rbEFNCZMhDa7Q8bIKodMG4NH0uepZYEGbakh6SJIylMA1V-DwrsqAy41PwLqpXmwxs",
@@ -43,11 +44,7 @@ function requestPermission() {
                 deviceToken: currentToken,
                 deviceType: "web",
               })
-                .then(() => {
-                  alert(
-                    "Đặt thông báo thành công, hãy nhớ học bài đúng giờ nhé"
-                  );
-                })
+                .then(() => {})
                 .catch((err) => console.log(err));
             } else {
               //show permission request UI
@@ -57,17 +54,9 @@ function requestPermission() {
             }
           })
           .catch((err) => console.log(err));
-      } else {
-        console.log("chưa có quyền thông báo");
       }
     });
-  }
-}
-
-const MenuUser = () => {
-  requestPermission();
-
-  const navigate = useNavigate();
+  }, []);
 
   function handleLogout() {
     logout()
@@ -78,7 +67,6 @@ const MenuUser = () => {
       .catch((err) => console.log(err));
   }
 
-  // subscribe1();
   return (
     <div>
       <nav class="navbar navbar-expand navbar-light">
@@ -89,16 +77,30 @@ const MenuUser = () => {
           <Link class="nav-link" to={"/user/courses"}>
             Học từ mới
           </Link>
-          <Link class="nav-link" to={"/user/leanredWord"}>
+          <Link class="nav-link" to={"/user/learned-word"}>
             Các từ đã học
           </Link>
+          <></>
           <Link class="nav-link" href="#">
             Thống kê
           </Link>
-
           <Link class="nav-link" href="#" onClick={handleLogout}>
             Đăng xuất
           </Link>
+          <div className="form-check form-switch">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="flexSwitchCheckChecked"
+              checked={Notification.permission === "granted"}
+            />
+            <label
+              className="form-check-label"
+              htmlFor="flexSwitchCheckChecked"
+            >
+              Trạng thái thông báo
+            </label>
+          </div>
         </div>
       </nav>
     </div>
